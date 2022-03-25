@@ -3,6 +3,7 @@ package com.example.menuoftheweekspringbootteamproject.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Dish {
@@ -11,28 +12,34 @@ public class Dish {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @Column(length = 40, nullable = false)
     private String name;
 
+    @Column(length = 40, nullable = false)
     private String description;
 
     private int likes;
 
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+    List<Ingredient> ingredients;
 
     public Dish() {
     }
 
-    public Dish(String name, String description, int likes, ArrayList<Ingredient> ingredients) {
+    public Dish(String name, String description, int likes, List<Ingredient> ingredients) {
         this.name = name;
         this.description = description;
         this.likes = likes;
         this.ingredients = ingredients;
     }
 
-    public ArrayList<Ingredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public String getName() {
@@ -60,9 +67,7 @@ public class Dish {
     }
 
 
-    public void setIngredients(ArrayList<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
+
 
     public Integer getId() {
         return id;

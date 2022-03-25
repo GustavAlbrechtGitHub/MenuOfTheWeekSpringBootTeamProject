@@ -1,7 +1,7 @@
 package com.example.menuoftheweekspringbootteamproject.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ingridient")
@@ -11,21 +11,23 @@ public class Ingredient {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @Column(length = 40, nullable = false)
     private String name;
 
-    private boolean isVegetarian;
+    @Column(length = 40, nullable = false)
+    private String description;
 
 
     @ManyToMany(mappedBy = "ingredients", fetch = FetchType.EAGER)
-    ArrayList<Dish> dishes = new ArrayList<>();
+    List<Dish> dishes;
 
     public Ingredient() {
     }
 
-    public Ingredient(Integer id, String name, boolean isVegetarian, ArrayList<Dish> dishes) {
+    public Ingredient(Integer id, String name, String description, List<Dish> dishes) {
         this.id = id;
         this.name = name;
-        this.isVegetarian = isVegetarian;
+        this.description = description;
         this.dishes = dishes;
     }
 
@@ -37,19 +39,19 @@ public class Ingredient {
         this.name = name;
     }
 
-    public boolean isVegetarian() {
-        return isVegetarian;
+    public String getDescription() {
+        return description;
     }
 
-    public void setVegetarian(boolean vegetarian) {
-        isVegetarian = vegetarian;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public ArrayList<Dish> getDishes() {
+    public List<Dish> getDishes() {
         return dishes;
     }
 
-    public void setDishes(ArrayList<Dish> dishes) {
+    public void setDishes(List<Dish> dishes) {
         this.dishes = dishes;
     }
 
