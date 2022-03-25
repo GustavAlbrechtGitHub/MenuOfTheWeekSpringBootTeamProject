@@ -37,7 +37,7 @@ public class DishController {
     public String saveDish(Dish dish, RedirectAttributes ra){
         service.save(dish);
         ra.addFlashAttribute("message", "The dish has been saved succesfully");
-        return "redirect:/dishes";
+        return "index";
     }
 
 
@@ -54,16 +54,15 @@ public class DishController {
     public String deleteDish(@PathVariable("id") Integer id, RedirectAttributes ra){
         service.deleteById(id);
         ra.addFlashAttribute("message", "The Dish ID: " + id + " has been deleted ");
-        return "redirect:/dishes";
+        return "redirect:/index";
 
     }
 
-    @PostMapping("/dishes/like")
-    public String showAddDish(Model model, @PathVariable("id") Integer id, RedirectAttributes ra){
-        Dish dish = service.get(id);
-       // model.addAttribute("dish.likes", dish.setFavoured());
+    @PostMapping("/dishes/like/{id}")
+    public String addLike(Model model, @PathVariable("id") Integer id, RedirectAttributes ra){
+        service.like(id);
         ra.addFlashAttribute("message", "The Dish ID: " + id + " has been liked! ");
-        return "dish_form";
+        return "redirect:/index";
     }
 
 
