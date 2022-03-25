@@ -20,8 +20,7 @@ public class Dish {
     private boolean isFavoured;
 
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ingredients_ID")
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 
     public Dish() {
