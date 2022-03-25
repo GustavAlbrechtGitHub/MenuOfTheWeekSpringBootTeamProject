@@ -23,7 +23,7 @@ public class DishController {
         List<Dish> dishes = service.findAll();
         model.addAttribute("dishList", dishes);
 
-        return "dishes";
+        return "index";
     }
 
     @GetMapping("/dishes/new")
@@ -53,9 +53,17 @@ public class DishController {
     @GetMapping("/dishes/delete/{id}")
     public String deleteDish(@PathVariable("id") Integer id, RedirectAttributes ra){
         service.deleteById(id);
-        ra.addFlashAttribute("message", "The dish ID: " + id + " has been deleted ");
+        ra.addFlashAttribute("message", "The Dish ID: " + id + " has been deleted ");
         return "redirect:/dishes";
 
+    }
+
+    @PostMapping("/dishes/like")
+    public String showAddDish(Model model, @PathVariable("id") Integer id, RedirectAttributes ra){
+        Dish dish = service.get(id);
+       // model.addAttribute("dish.likes", dish.setFavoured());
+        ra.addFlashAttribute("message", "The Dish ID: " + id + " has been liked! ");
+        return "dish_form";
     }
 
 

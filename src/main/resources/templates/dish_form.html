@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/dishes/save}" method='POST'>
+    <table>
+        <tr>
+            <td>Select type</td>
+            <td>
+                <select th:field="*{dish.description}">
+                    <option value=""> -- </option>
+                    <option value=""> Vegetarian </option>
+                    <option value=""> Non-Vegetarian </option>
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input name="submit" type="submit" value="submit" /></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

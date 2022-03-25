@@ -13,11 +13,9 @@ public class Dish {
 
     private String name;
 
-    private boolean isVegetarian;
+    private String description;
 
     private int likes;
-
-    private boolean isFavoured;
 
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
@@ -26,11 +24,10 @@ public class Dish {
     public Dish() {
     }
 
-    public Dish(String name, boolean isVegetarian, int likes, boolean isFavoured, ArrayList<Ingredient> ingredients) {
+    public Dish(String name, String description, int likes, ArrayList<Ingredient> ingredients) {
         this.name = name;
-        this.isVegetarian = isVegetarian;
+        this.description = description;
         this.likes = likes;
-        this.isFavoured = isFavoured;
         this.ingredients = ingredients;
     }
 
@@ -46,29 +43,22 @@ public class Dish {
         this.name = name;
     }
 
-    public boolean isVegetarian() {
-        return isVegetarian;
+    public String getDescription() {
+        return description;
     }
 
-    public void setVegetarian(boolean vegetarian) {
-        isVegetarian = vegetarian;
+    public void setDescription(String descrption) {
+        this.description = descrption;
     }
 
     public int getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
+    public void setLikes(int addedLike) {
+        this.likes = likes + addedLike;
     }
 
-    public boolean isFavoured() {
-        return isFavoured;
-    }
-
-    public void setFavoured(boolean favoured) {
-        isFavoured = favoured;
-    }
 
     public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;

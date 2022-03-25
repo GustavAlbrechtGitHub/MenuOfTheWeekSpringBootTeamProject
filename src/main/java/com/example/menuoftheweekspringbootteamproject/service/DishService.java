@@ -43,6 +43,17 @@ public class DishService {
 
     public void deleteById(Integer id){
         repository.deleteById(id);
+    }
+
+    public void like(Integer id) {
+
+        Dish dish = repository.findById(id).get();
+
+        dish.setLikes(1);
+        repository.save(dish);
 
     }
+
+
+
 }
