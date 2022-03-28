@@ -1,28 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>[[${pageTitle}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.1.1/css/bootstrap.min.css}">
 </head>
 <body>
-<form th:action="@{/dishes/save}" method='POST'>
-    <table>
-        <tr>
-            <td>Select type</td>
-            <td>
-                <select th:field="*{dish.description}">
-                    <option value=""> -- </option>
-                    <option value=""> Vegetarian </option>
-                    <option value=""> Non-Vegetarian </option>
+<div class="h2 text-center" style="color: darkred">
+    <h1>[[${pageTitle}]]</h1>
+</div>
+<form th:action="@{/dishes/save}" method="post" style="max-width: 500px; margin: 0 auto" th:object="${dish}">
 
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td><input name="submit" type="submit" value="submit" /></td>
-        </tr>
-    </table>
+    <input type="hidden" th:field="*{id}"/>
+
+    <div class="border border-secondary p-4 rounded">
+        <div class="form-group row">
+
+            <label class="col-sm-4">Name</label>
+            <div class="col-sm-8 mb-3">
+
+                <input class="form-control" type="text" required th:field="*{name}">
+            </div>
+            <label class="col-sm-4">Ingredient</label>
+            <div class="col-sm-8 mb-3">
+                <a class="h4 m-3" th:href="@{/ingredients/new}">Add ingredient</a>
+                <!--                <input class="form-control" type="text" th:value="">-->
+            </div>
+
+
+            <table class="mb-4">
+                <tr>
+                    <td>Select type</td>
+                    <td>
+                        <select th:field="*{description}">
+                            <option value=""> --</option>
+                            <option value=""> Vegetarian</option>
+                            <option value=""> Non-Vegetarian</option>
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+
+
+        </div>
+
+        <div class="col-sm-3">
+
+            <button class="btn btn-outline-success" type="submit">Save Dish</button>
+        </div>
+    </div>
+    <a class="h4" th:href="@{/dishes/new}">Cancel</a>
 </form>
+
+
 
 </body>
 </html>

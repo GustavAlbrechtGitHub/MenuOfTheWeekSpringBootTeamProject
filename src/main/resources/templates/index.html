@@ -13,6 +13,7 @@
     <div class="m-3">
 
         <a class="h4" th:href="@{/dishes/new}">Add New Dish</a>
+
     </div>
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
@@ -23,6 +24,11 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
 
     </form>
+    <label class="col-sm-4">Ingredient</label>
+
+
+        <!--                <input class="form-control" type="text" th:value="">-->
+
 
     <div>
         <table class="table table-bordered">

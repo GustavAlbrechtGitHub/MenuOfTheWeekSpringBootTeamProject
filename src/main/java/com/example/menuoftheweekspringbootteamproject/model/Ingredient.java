@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "ingridient")
+@Table(name = "ingredient")
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,8 +14,6 @@ public class Ingredient {
     @Column(length = 40, nullable = false)
     private String name;
 
-    @Column(length = 40, nullable = false)
-    private String description;
 
 
     @ManyToMany(mappedBy = "ingredients", fetch = FetchType.EAGER)
@@ -24,10 +22,13 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    public Ingredient(Integer id, String name, String description, List<Dish> dishes) {
+    public Ingredient(String name) {
+        this.name = name;
+    }
+
+    public Ingredient(Integer id, String name, List<Dish> dishes) {
         this.id = id;
         this.name = name;
-        this.description = description;
         this.dishes = dishes;
     }
 
@@ -39,13 +40,6 @@ public class Ingredient {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public List<Dish> getDishes() {
         return dishes;

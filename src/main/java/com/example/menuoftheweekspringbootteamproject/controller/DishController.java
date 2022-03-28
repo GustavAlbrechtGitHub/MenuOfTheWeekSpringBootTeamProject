@@ -33,7 +33,8 @@ public class DishController {
         return "dish_form";
     }
 
-    @PostMapping("/dish/save")
+
+    @PostMapping("/dishes/save")
     public String saveDish(Dish dish, RedirectAttributes ra){
         service.save(dish);
         ra.addFlashAttribute("message", "The dish has been saved succesfully");
