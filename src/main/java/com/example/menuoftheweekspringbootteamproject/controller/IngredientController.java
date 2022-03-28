@@ -1,6 +1,7 @@
 package com.example.menuoftheweekspringbootteamproject.controller;
 
 
+import com.example.menuoftheweekspringbootteamproject.model.Dish;
 import com.example.menuoftheweekspringbootteamproject.model.Ingredient;
 import com.example.menuoftheweekspringbootteamproject.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,8 +29,20 @@ public class IngredientController {
         return "ingredients";
     }
 
-    @GetMapping("/ingredients/new")
-    public String showAddIngredient(Model model){
+    @GetMapping("/ingredients/findById")
+    public String findAllById(Model model){
+        List<Ingredient> ingredients = service.findAll();
+        model.addAttribute("ingredientList", ingredients);
+
+        return "ingredients";
+    }
+
+
+
+    @GetMapping("/ingredients/new/{name}")
+    public String showAddIngredient(Model model, Dish dish,@PathVariable("name") String name){
+        dish.setName(name);
+        model.addAttribute("dish", dish);
         model.addAttribute("ingredient", new Ingredient());
         model.addAttribute("pageTitle", "Add New Ingredient");
         return "ingredient_form";
@@ -37,9 +51,22 @@ public class IngredientController {
 
 
     @PostMapping("/ingredients/save")
-    public String saveIngredient(Ingredient ingredient, RedirectAttributes ra){
+    public String saveIngredient(Ingredient ingredient, Dish dish, RedirectAttributes ra, Model model){
+
+
+        if (dish.getIngredients() == null){
+            dish.setIngredients(new ArrayList<>()) ;
+        }
+       List<Ingredient> ingredients = dish.getIngredients();
+       ingredients.add(ingredient);
+       dish.setIngredients(ingredients);
         service.save(ingredient);
+
+        model.addAttribute("dish", dish);
+
+        model.addAttribute("ingredientList", ingredients);
         ra.addFlashAttribute("message", "The ingredient has been saved succesfully");
+
         return "dish_form";
     }
 

@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface IngredientRepository extends CrudRepository<Ingredient, Integer> {
 
-    @Query(value = "SELECT i FROM Ingredient i WHERE i.name like %:keyword%")
+    @Query(value = "SELECT i FROM Ingredient i WHERE i.ingredientName like %:keyword%")
     List<Ingredient> findByKeyword(@Param("keyword") String keyword);
+
+
 }

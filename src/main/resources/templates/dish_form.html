@@ -9,9 +9,9 @@
 <div class="h2 text-center" style="color: darkred">
     <h1>[[${pageTitle}]]</h1>
 </div>
-<form th:action="@{/dishes/save}" method="post" style="max-width: 500px; margin: 0 auto" th:object="${dish}">
+<form th:action="@{/dishes/save}" method="post" style="max-width: 500px; margin: 0 auto" >
 
-    <input type="hidden" th:field="*{id}"/>
+    <input type="hidden" th:field="*{dish.id}"/>
 
     <div class="border border-secondary p-4 rounded">
         <div class="form-group row">
@@ -19,20 +19,46 @@
             <label class="col-sm-4">Name</label>
             <div class="col-sm-8 mb-3">
 
-                <input class="form-control" type="text" required th:field="*{name}">
+                <input class="form-control" type="text" th:value="${dish.name}" required th:field="*{dish.name}">
             </div>
             <label class="col-sm-4">Ingredient</label>
             <div class="col-sm-8 mb-3">
-                <a class="h4 m-3" th:href="@{/ingredients/new}">Add ingredient</a>
+                <a class="h4 m-3" th:href="@{'/ingredients/new/' + ${dish.name}}">Add ingredient</a>
                 <!--                <input class="form-control" type="text" th:value="">-->
             </div>
 
+            <div>
 
+
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                    <th:block th:each="ingredient : ${ingredientList}">
+                        <tr>
+<!--                            <td th:text="${user.id}"></td>-->
+                            <td th:text="${ingredient.ingredientName}"></td>
+
+
+
+                        </tr>
+
+                    </th:block>
+                    </tbody>
+                </table>
+
+            </div>
             <table class="mb-4">
                 <tr>
                     <td>Select type</td>
                     <td>
-                        <select th:field="*{description}">
+                        <select th:field="*{dish.description}">
                             <option value=""> --</option>
                             <option value=""> Vegetarian</option>
                             <option value=""> Non-Vegetarian</option>
@@ -52,7 +78,6 @@
     </div>
     <a class="h4" th:href="@{/dishes/new}">Cancel</a>
 </form>
-
 
 
 </body>

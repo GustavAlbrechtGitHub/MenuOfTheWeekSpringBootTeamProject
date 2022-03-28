@@ -12,7 +12,7 @@ public class Ingredient {
     private Integer id;
 
     @Column(length = 40, nullable = false)
-    private String name;
+    private String ingredientName;
 
 
 
@@ -22,22 +22,22 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    public Ingredient(String name) {
-        this.name = name;
+    public Ingredient(String ingredientName) {
+        this.ingredientName = ingredientName;
     }
 
-    public Ingredient(Integer id, String name, List<Dish> dishes) {
+    public Ingredient(Integer id, String ingredientName, List<Dish> dishes) {
         this.id = id;
-        this.name = name;
+        this.ingredientName = ingredientName;
         this.dishes = dishes;
     }
 
-    public String getName() {
-        return name;
+    public String getIngredientName() {
+        return ingredientName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIngredientName(String name) {
+        this.ingredientName = name;
     }
 
 
