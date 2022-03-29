@@ -84,15 +84,17 @@ public class DishController {
     public String deleteDish(@PathVariable("id") Integer id, RedirectAttributes ra){
         service.deleteById(id);
         ra.addFlashAttribute("message", "The Dish ID: " + id + " has been deleted ");
-        return "redirect:/index";
+        return "redirect:/startPage";
 
     }
 
-    @PostMapping("/dishes/like/{id}")
+    @GetMapping("/dishes/like/{id}")
     public String addLike(Model model, @PathVariable("id") Integer id, RedirectAttributes ra){
         service.like(id);
+        List<Dish> dishes = service.findAll();
+        model.addAttribute("dishList", dishes);
         ra.addFlashAttribute("message", "The Dish ID: " + id + " has been liked! ");
-        return "redirect:/index";
+        return "startPage";
     }
 
     @GetMapping("/dishes/index")
