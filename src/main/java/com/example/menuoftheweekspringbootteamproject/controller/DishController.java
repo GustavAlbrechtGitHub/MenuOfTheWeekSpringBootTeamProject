@@ -36,7 +36,7 @@ public class DishController {
             List<Dish> dishes = service.findAll();
             model.addAttribute("dishList", dishes);
         }
-        return "index";
+        return "startPage";
     }
       /* if (keyword !=null)
             model.addAttribute("userList", service.findByKeyword(keyword));
@@ -100,6 +100,14 @@ public class DishController {
         return "index";
 
 
+    }
+    @GetMapping("/dishes/startpage")
+    public String findAll2(Model model){
+
+            List<Dish> dishes = service.findAll();
+            model.addAttribute("dishList", dishes);
+
+        return "startPage";
     }
 
 
