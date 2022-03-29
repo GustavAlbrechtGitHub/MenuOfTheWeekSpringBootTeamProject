@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Controller
@@ -24,13 +25,27 @@ public class DishController {
     @Autowired
     private IngredientService ingredientService;
 
-    @GetMapping("/dishes")
-    public String findAll(Model model){
-        List<Dish> dishes = service.findAll();
-        model.addAttribute("dishList", dishes);
+    @PostConstruct
 
+
+    @GetMapping("/dishes")
+    public String findAll(Model model, String keyword){
+        if (keyword !=null)
+            model.addAttribute("dishList", service.findByKeyword(keyword));
+        else {
+            List<Dish> dishes = service.findAll();
+            model.addAttribute("dishList", dishes);
+        }
         return "index";
     }
+      /* if (keyword !=null)
+            model.addAttribute("userList", service.findByKeyword(keyword));
+        else {
+
+        List<User> users = service.findAll();
+        model.addAttribute("userList", users);
+    }
+        return "users";*/
 
     @GetMapping("/dishes/new")
     public String showAddDish(Model model){
@@ -58,6 +73,7 @@ public class DishController {
     @GetMapping("/dishes/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model){
         Dish dish = service.get(id);
+        List<Dish> dishes = service.findAll();
         model.addAttribute("dish", dish);
         model.addAttribute("pageTitle", "Edit User (with ID: " + id + ")");
 
@@ -77,6 +93,13 @@ public class DishController {
         service.like(id);
         ra.addFlashAttribute("message", "The Dish ID: " + id + " has been liked! ");
         return "redirect:/index";
+    }
+
+    @GetMapping("/dishes/index")
+    public String returnIndex(){
+        return "index";
+
+
     }
 
 
