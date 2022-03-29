@@ -24,7 +24,7 @@ public class IngredientController {
     private IngredientService service;
 
     @Autowired
-    DishService dishService;
+    private DishService dishService;
 
     @GetMapping("/ingredients")
     public String findAll(Model model){
@@ -44,38 +44,25 @@ public class IngredientController {
 
 
 
-    @GetMapping("/ingredients/new")
-    public String showAddIngredient(Model model, Dish dish,@PathVariable("id") Integer id){
-        //dish.setName(name);
-       // dish.dish
-
-        model.addAttribute("dish", dish);
-        model.addAttribute("ingredient", new Ingredient());
-        model.addAttribute("pageTitle", "Add New Ingredient");
-        return "ingredient_form";
-    }
-
-
-
     @PostMapping("/ingredients/save/{id}")
     public String saveIngredient(Ingredient ingredient, Dish dish, RedirectAttributes ra, Model model, @PathVariable("id") Integer id){
 
+        Dish savedDish = dishService.findById(id);
 
-       /* if (dish.getIngredients() == null){
-            dish.setIngredients(new ArrayList<>()) ;
-        }*/
-       List<Ingredient> ingredients = dish.getIngredients();
-       ingredients.add(ingredient);
-       dish.setIngredients(ingredients);
+        List<Dish> listDishes = new ArrayList<>();
+
+        listDishes.add(savedDish);
+        ingredient.setDishes(listDishes);
+
         service.save(ingredient);
 
-        model.addAttribute("dish", dish);
-
-
-        model.addAttribute("ingredientList", ingredients);
         ra.addFlashAttribute("message", "The ingredient has been saved succesfully");
 
-        return "dish_form";
+        model.addAttribute("dish", savedDish);
+        model.addAttribute("ingredient", new Ingredient());
+        model.addAttribute("pageTitle", "Add New Ingredient");
+
+        return "ingredient_form";
     }
 
 
@@ -85,15 +72,13 @@ public class IngredientController {
         model.addAttribute("ingredient", ingredient);
         model.addAttribute("pageTitle", "Edit User (with ID: " + id + ")");
 
-        return "ingredient_form";
+        return "redirect:/ingredient_form";
     }
-
     @GetMapping("/ingredients/delete/{id}")
     public String deleteIngredient(@PathVariable("id") Integer id, RedirectAttributes ra){
         service.deleteById(id);
         ra.addFlashAttribute("message", "The ingredient ID: " + id + " has been deleted ");
         return "redirect:/ingredients";
-
     }
 
 

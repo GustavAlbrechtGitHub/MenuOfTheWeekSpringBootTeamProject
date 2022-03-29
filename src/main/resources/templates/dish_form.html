@@ -9,17 +9,15 @@
 <div class="h2 text-center" style="color: darkred">
     <h1>[[${pageTitle}]]</h1>
 </div>
-<form th:action="@{'/dishes/save/' + ${dish.id}}" method="post" style="max-width: 500px; margin: 0 auto" >
 
-    <input type="hidden" th:field="*{dish.id}"/>
+<form th:action="@{'/dishes/save'}" method="post" style="max-width: 500px; margin: 0 auto" >
 
     <div class="border border-secondary p-4 rounded">
         <div class="form-group row">
 
             <label class="col-sm-4">Name</label>
             <div class="col-sm-8 mb-3">
-
-                <input class="form-control" type="text" required th:value="*{dish.name}"  th:field="*{dish.name}">
+                <input class="form-control" type="text" required th:field="*{dish.name}">
             </div>
 
 

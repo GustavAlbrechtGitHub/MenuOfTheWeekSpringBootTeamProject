@@ -27,8 +27,13 @@ public class DishService {
 
     }
 
-    public void save(Dish dish){
-        repository.save(dish);
+    public Dish save(Dish dish){
+
+        return repository.save(dish);
+    }
+
+    public Dish findById(Integer id){
+        return repository.findById(id).get();
     }
 
 

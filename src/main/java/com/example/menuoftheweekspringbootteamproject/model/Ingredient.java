@@ -17,10 +17,10 @@ public class Ingredient {
 
 
 
-    @ManyToMany(mappedBy = "ingredients", fetch = FetchType.EAGER)
+    @ManyToMany( cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     List<Dish> dishes;
 
-    public Ingredient() {
+    public Ingredient() { this.dishes = new ArrayList<>();
     }
 
     public Ingredient(String ingredientName) {

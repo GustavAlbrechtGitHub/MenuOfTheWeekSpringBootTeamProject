@@ -41,13 +41,15 @@ public class DishController {
     }
 
 
-    @PostMapping("/dishes/save/{id}")
-    public String saveDish(Model model, Dish dish, RedirectAttributes ra, @PathVariable("id") Integer id ){
-        service.save(dish);
+    @PostMapping("/dishes/save")
+    public String saveDish(Model model, Dish dish, RedirectAttributes ra){
+
+        Dish dish2 = service.save(dish);
 
         ra.addFlashAttribute("message", "The dish has been saved succesfully");
         Ingredient ingredient = new Ingredient();
 
+        model.addAttribute("dish", dish2);
         model.addAttribute("ingredient", ingredient);
         return "ingredient_form";
     }

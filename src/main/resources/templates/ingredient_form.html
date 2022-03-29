@@ -8,9 +8,9 @@
 <body>
 
 <div class="h2 text-center">[[${pageTitle}]]</div>
-<form th:action="@{'/ingredients/save/' + ${id}}" method="post" style="max-width: 500px; margin: 0 auto" >
+<form th:action="@{'/ingredients/save/' + ${dish.id}}" method="post" style="max-width: 500px; margin: 0 auto" >
 
-   <input type="hidden" th:field="*{ingredient.id}"/>
+   <input type="hidden" th:field="*{dish.id}"/>
 
     <div class="border border-secondary p-4 rounded">
         <div class="form-group row">
