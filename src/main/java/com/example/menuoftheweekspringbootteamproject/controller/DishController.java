@@ -25,7 +25,7 @@ public class DishController {
     @Autowired
     private IngredientService ingredientService;
 
-    @PostConstruct
+
 
 
     @GetMapping("/dishes")
