@@ -25,6 +25,7 @@ public class Dish {
     List<Ingredient> ingredients;
 
     public Dish() {
+        this.ingredients = new ArrayList<>();
     }
 
     public Dish(String name, String description, int likes, List<Ingredient> ingredients) {
@@ -32,6 +33,7 @@ public class Dish {
         this.description = description;
         this.likes = likes;
         this.ingredients = ingredients;
+        //this.ingredients = new ArrayList<>();
     }
 
     public List<Ingredient> getIngredients() {

@@ -14,4 +14,5 @@ public interface IngredientRepository extends CrudRepository<Ingredient, Integer
     List<Ingredient> findByKeyword(@Param("keyword") String keyword);
 
 
+
 }

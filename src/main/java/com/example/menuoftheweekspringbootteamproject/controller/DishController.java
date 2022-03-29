@@ -1,7 +1,10 @@
 package com.example.menuoftheweekspringbootteamproject.controller;
 
+import com.example.menuoftheweekspringbootteamproject.dao.IngredientRepository;
 import com.example.menuoftheweekspringbootteamproject.model.Dish;
+import com.example.menuoftheweekspringbootteamproject.model.Ingredient;
 import com.example.menuoftheweekspringbootteamproject.service.DishService;
+import com.example.menuoftheweekspringbootteamproject.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,9 @@ public class DishController {
     @Autowired
     private DishService service;
 
+    @Autowired
+    private IngredientService ingredientService;
+
     @GetMapping("/dishes")
     public String findAll(Model model){
         List<Dish> dishes = service.findAll();
@@ -28,17 +34,22 @@ public class DishController {
 
     @GetMapping("/dishes/new")
     public String showAddDish(Model model){
-        model.addAttribute("dish", new Dish());
+        Dish dish = new Dish();
+        model.addAttribute("dish", dish);
         model.addAttribute("pageTitle", "Add New Dish");
         return "dish_form";
     }
 
 
-    @PostMapping("/dishes/save")
-    public String saveDish(Dish dish, RedirectAttributes ra){
+    @PostMapping("/dishes/save/{id}")
+    public String saveDish(Model model, Dish dish, RedirectAttributes ra, @PathVariable("id") Integer id ){
         service.save(dish);
+
         ra.addFlashAttribute("message", "The dish has been saved succesfully");
-        return "index";
+        Ingredient ingredient = new Ingredient();
+
+        model.addAttribute("ingredient", ingredient);
+        return "ingredient_form";
     }
 
 

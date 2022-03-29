@@ -5,16 +5,21 @@ import com.example.menuoftheweekspringbootteamproject.model.Dish;
 import com.example.menuoftheweekspringbootteamproject.model.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.List;
 import java.util.Optional;
 
 
+
 @Service
+@SessionScope
 public class DishService {
 
     @Autowired
     private DishRepository repository;
+
+    //Dish currentDish;
 
     public List<Dish> findAll(){
         Iterable<Dish> dishes = repository.findAll();
