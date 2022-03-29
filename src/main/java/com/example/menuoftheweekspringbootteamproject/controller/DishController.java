@@ -25,7 +25,6 @@ public class DishController {
     @Autowired
     private IngredientService ingredientService;
 
-    @PostConstruct
 
 
     @GetMapping("/dishes")
@@ -100,6 +99,14 @@ public class DishController {
         return "index";
 
 
+    }
+    @GetMapping("/dishes/startpage")
+    public String findAll2(Model model){
+
+            List<Dish> dishes = service.findAll();
+            model.addAttribute("dishList", dishes);
+
+        return "startPage";
     }
 
 
