@@ -27,6 +27,7 @@ public class DishController {
 
 
 
+
     @GetMapping("/dishes")
     public String findAll(Model model, String keyword){
         if (keyword !=null)
@@ -99,14 +100,6 @@ public class DishController {
         return "index";
 
 
-    }
-    @GetMapping("/dishes/startpage")
-    public String findAll2(Model model){
-
-            List<Dish> dishes = service.findAll();
-            model.addAttribute("dishList", dishes);
-
-        return "startPage";
     }
 
 
