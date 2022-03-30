@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Menu</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" type="text/css"/>
+
+</head>
+<body>
+<div class="m-3">
+    <a class="h4 btn btn-success" th:href="@{/dishes/menu/random}">Menu Of The Week Random</a>
+</div>
+<br/>
+<div class="m-3">
+    <a class="h4 btn btn-success" th:href="@{/dishes/menu/vegetarian}">Menu Of The Week Vegetarian</a>
+</div>
+<br/>
+<div class="m-3">
+    <a class="h4 btn btn-success" th:href="@{/dishes/menu/popular}">Menu Of The week Popular</a>
+</div>
+
+</body>
+</html>

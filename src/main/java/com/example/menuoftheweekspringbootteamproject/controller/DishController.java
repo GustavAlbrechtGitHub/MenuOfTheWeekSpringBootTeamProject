@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @Controller
@@ -150,6 +151,43 @@ public class DishController {
 
         return "ingredientPage";
     }
+
+    @GetMapping("/dishes/menu")
+    public String showWeekMenu(){
+
+        return "week_menu";
+    }
+
+    @GetMapping("/dishes/menu/random")
+    public String showWeekMenuRandom(Model model){
+
+      List<Dish> allDishes = service.findAll();
+      if (allDishes.size()< 7){
+         return "error_page";
+      }
+
+      List<Integer> allDishesId = new ArrayList<>();
+
+      allDishes.stream().forEach(dish -> allDishesId.add(dish.getId()));
+
+      List<Integer> selectedIds = new ArrayList<>();
+
+        ThreadLocalRandom.current()
+                .ints(0, allDishesId.size())
+                .distinct().limit(7)
+                .forEach(d -> selectedIds.add(allDishesId.get(d)));
+
+        List<Dish> selectedDishes = service.findAllById(selectedIds);
+
+        model.addAttribute("pageTitle", "Random Menu");
+
+        model.addAttribute("generatedList", selectedDishes);
+
+
+        return "week_menu_generated";
+    }
+
+
 
 
 }

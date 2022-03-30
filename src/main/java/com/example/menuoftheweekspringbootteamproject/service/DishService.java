@@ -27,6 +27,12 @@ public class DishService {
 
     }
 
+    public List<Dish> findAllById(List<Integer> ids){
+        Iterable<Dish> selectedDishes = repository.findAllById(ids);
+
+        return (List<Dish>) selectedDishes;
+    }
+
     public Dish save(Dish dish){
 
         return repository.save(dish);

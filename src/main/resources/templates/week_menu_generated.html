@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${pageTitle}]]</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" type="text/css"/>
+</head>
+<body>
+
+<div>
+    <table class="table table-bordered">
+        <thead class="table-light">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Likes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="dish : ${generatedList}">
+            <tr>
+                <td th:text="${dish.id}"></td>
+                <td th:text="${dish.name}"></td>
+                <td th:text="${dish.description}"></td>
+                <td th:text="${dish.likes}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
