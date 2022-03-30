@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Controller
@@ -23,13 +24,27 @@ public class DishController {
     @Autowired
     private IngredientService ingredientService;
 
-    @GetMapping("/dishes")
-    public String findAll(Model model){
-        List<Dish> dishes = service.findAll();
-        model.addAttribute("dishList", dishes);
 
-        return "index";
+
+
+    @GetMapping("/dishes")
+    public String findAll(Model model, String keyword){
+        if (keyword !=null)
+            model.addAttribute("dishList", service.findByKeyword(keyword));
+        else {
+            List<Dish> dishes = service.findAll();
+            model.addAttribute("dishList", dishes);
+        }
+        return "startPage";
     }
+      /* if (keyword !=null)
+            model.addAttribute("userList", service.findByKeyword(keyword));
+        else {
+
+        List<User> users = service.findAll();
+        model.addAttribute("userList", users);
+    }
+        return "users";*/
 
     @GetMapping("/dishes/new")
     public String showAddDish(Model model){
@@ -61,6 +76,7 @@ public class DishController {
     @GetMapping("/dishes/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model){
         Dish dish = service.get(id);
+        List<Dish> dishes = service.findAll();
         model.addAttribute("dish", dish);
         model.addAttribute("pageTitle", "Edit User (with ID: " + id + ")");
 
@@ -71,15 +87,32 @@ public class DishController {
     public String deleteDish(@PathVariable("id") Integer id, RedirectAttributes ra){
         service.deleteById(id);
         ra.addFlashAttribute("message", "The Dish ID: " + id + " has been deleted ");
-        return "redirect:/index";
+        return "redirect:/startPage";
 
     }
 
-    @PostMapping("/dishes/like/{id}")
+    @GetMapping("/dishes/like/{id}")
     public String addLike(Model model, @PathVariable("id") Integer id, RedirectAttributes ra){
         service.like(id);
+        List<Dish> dishes = service.findAll();
+        model.addAttribute("dishList", dishes);
         ra.addFlashAttribute("message", "The Dish ID: " + id + " has been liked! ");
-        return "redirect:/index";
+        return "startPage";
+    }
+
+    @GetMapping("/dishes/index")
+    public String returnIndex(){
+        return "index";
+
+
+    }
+    @GetMapping("/dishes/startpage")
+    public String findAll2(Model model){
+
+            List<Dish> dishes = service.findAll();
+            model.addAttribute("dishList", dishes);
+
+        return "startPage";
     }
 
 
