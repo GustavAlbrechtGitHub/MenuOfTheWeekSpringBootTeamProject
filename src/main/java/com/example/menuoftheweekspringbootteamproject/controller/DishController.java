@@ -10,11 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class DishController {
@@ -132,6 +134,16 @@ public class DishController {
         model.addAttribute("dishList", dishes);
 
         return "startPage";
+    }
+
+    @GetMapping("/dishes/view ingredients/{id}")
+    public String showIngredients(Model model, @PathVariable("id") Integer id){
+            Dish dish = service.findById(id);
+            List<Ingredient> ingredients = dish.getIngredients();
+
+            model.addAttribute("ingredientList", ingredients);
+
+        return "ingredientPage";
     }
 
 
