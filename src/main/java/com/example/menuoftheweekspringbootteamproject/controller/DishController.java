@@ -101,7 +101,7 @@ public class DishController {
     }
 
     @GetMapping("/dishes/delete/{id}")
-    public String deleteDish(@PathVariable("id") Integer id, RedirectAttributes ra) {
+    public String deleteDish(Model model, @PathVariable("id") Integer id, RedirectAttributes ra) {
         Dish dish = service.findById(id);
         List<Ingredient> ingredients = dish.getIngredients();
         for (Ingredient i : ingredients) {
@@ -109,6 +109,8 @@ public class DishController {
         }
         dish.setIngredients(null);
         service.deleteById(id);
+        List<Dish> dishes = service.findAll();
+        model.addAttribute("dishList", dishes);
         ra.addFlashAttribute("message", "The Dish ID: " + id + " has been deleted ");
         return "startPage";
 
