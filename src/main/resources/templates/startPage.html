@@ -12,7 +12,7 @@
 
     <div class="m-3">
 
-        <a class="h4" th:href="@{/dishes/new}">Add New Dish</a>
+        <a class="h4 btn btn-success" th:href="@{/dishes/new}">Add New Dish</a>
 
     </div>
     <div th:if="${message}" class="alert alert-success text-center">
@@ -21,7 +21,7 @@
 
     <form th:action="@{/dishes}" method="get">
         <input class="rounded m-3" type="text" name="keyword">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-success btn-dark" type="submit">Search</button>
 
     </form>
 
@@ -56,10 +56,10 @@
                     <!--                    <td th:text="${dish.ingredients}"></td>-->
 
                     <!-- <td th:text="${user.roles}"></td> dishes.ingredients-->
-                    <td><a class="h4 m-3" th:href="@{'/dishes/edit/' + ${dish.id}}">Edit</a></td>
-                    <td><a class="h4 m-3" th:href="@{'/dishes/delete/' + ${dish.id}}">Delete</a></td>
-                    <td><a class="h4 m-3" th:href="@{'/dishes/like/' + ${dish.id}}">Like</a></td>
-                    <td><a class="h4 m-3" th:href="@{'/dishes/view ingredients/' + ${dish.id}}">View ingredients</a></td>
+                    <td><a class="h4 m-3 btn btn-warning" th:href="@{'/dishes/edit/' + ${dish.id}}">Edit</a></td>
+                    <td><a class="h4 m-3 btn btn-danger" th:href="@{'/dishes/delete/' + ${dish.id}}">Delete</a></td>
+                    <td><a class="h4 m-3 btn btn-success" th:href="@{'/dishes/like/' + ${dish.id}}">Like</a></td>
+                    <td><a class="h4 m-3 btn btn-info" th:href="@{'/dishes/view ingredients/' + ${dish.id}}">View ingredients</a></td>
 
 
                 </tr>
