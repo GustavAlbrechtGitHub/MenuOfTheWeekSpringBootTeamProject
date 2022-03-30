@@ -62,13 +62,16 @@ public class DishController {
         // If editing existing Dish, resets ingredient list
         if (dish.getId() != null) {
 
-            dish = service.findById(dish.getId());
+            Dish existingDish = service.findById(dish.getId());
 
-            List<Ingredient> ingredients = dish.getIngredients();
+            List<Ingredient> ingredients = existingDish.getIngredients();
             for (Ingredient i : ingredients) {
-                i.getDishes().remove(dish);
+                i.getDishes().remove(existingDish);
             }
-            dish.setIngredients(new ArrayList<>());
+            existingDish.setIngredients(new ArrayList<>());
+            existingDish.setDescription(dish.getDescription());
+
+            dish = existingDish;
         }
 
         dish.setName(dish.getName().toLowerCase());
