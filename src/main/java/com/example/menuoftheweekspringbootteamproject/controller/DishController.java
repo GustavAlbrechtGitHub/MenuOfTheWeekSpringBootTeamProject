@@ -1,6 +1,5 @@
 package com.example.menuoftheweekspringbootteamproject.controller;
 
-import com.example.menuoftheweekspringbootteamproject.dao.IngredientRepository;
 import com.example.menuoftheweekspringbootteamproject.model.Dish;
 import com.example.menuoftheweekspringbootteamproject.model.Ingredient;
 import com.example.menuoftheweekspringbootteamproject.service.DishService;
@@ -44,13 +43,17 @@ public class DishController {
     @PostMapping("/dishes/save")
     public String saveDish(Model model, Dish dish, RedirectAttributes ra){
 
-        Dish dish2 = service.save(dish);
+        dish.setName(dish.getName().toLowerCase());
+
+        Dish savedDish = service.save(dish);
 
         ra.addFlashAttribute("message", "The dish has been saved succesfully");
         Ingredient ingredient = new Ingredient();
 
-        model.addAttribute("dish", dish2);
+        model.addAttribute("dish", savedDish);
         model.addAttribute("ingredient", ingredient);
+        model.addAttribute("pageTitle", "Add New Ingredient");
+
         return "ingredient_form";
     }
 

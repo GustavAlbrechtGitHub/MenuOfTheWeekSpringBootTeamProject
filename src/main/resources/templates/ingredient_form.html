@@ -8,9 +8,7 @@
 <body>
 
 <div class="h2 text-center">[[${pageTitle}]]</div>
-<form th:action="@{'/ingredients/save/' + ${dish.id}}" method="post" style="max-width: 500px; margin: 0 auto" >
-
-   <input type="hidden" th:field="*{dish.id}"/>
+<form th:action="@{'/ingredients/save/' + ${dish.id}}" method="post"  style="max-width: 500px; margin: 0 auto" >
 
     <div class="border border-secondary p-4 rounded">
         <div class="form-group row">
@@ -20,12 +18,29 @@
               <input type="text" required th:field="*{ingredient.ingredientName}" class="form-control"/>
             </div>
 
-            <div>
+            <div class="mb-3">
                 <label class="col-sm-3"></label>
                 <button class="btn btn-outline-success" type="submit">Save Ingredient</button>
             </div>
 
-    <a class="h4" th:href="@{/dishes/new}">Cancel</a>
+            <div>
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                    <tr>
+                        <th> Selected ingredients </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="i : ${dish.getIngredients()}">
+                        <tr>
+                            <td th:text="${i.ingredientName}"></td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+
+    <a class="h4" th:href="@{/dishes/new}">Done</a>
 
         </div>
     </div>

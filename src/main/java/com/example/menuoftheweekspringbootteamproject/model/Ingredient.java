@@ -8,16 +8,16 @@ import java.util.List;
 @Table(name = "ingredient")
 public class Ingredient {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Integer IngredientId;
 
     @Column(length = 40, nullable = false)
     private String ingredientName;
 
 
 
-    @ManyToMany( cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Dish> dishes;
 
     public Ingredient() { this.dishes = new ArrayList<>();
@@ -27,8 +27,8 @@ public class Ingredient {
         this.ingredientName = ingredientName;
     }
 
-    public Ingredient(Integer id, String ingredientName, List<Dish> dishes) {
-        this.id = id;
+    public Ingredient(Integer IngredientId, String ingredientName, List<Dish> dishes) {
+        this.IngredientId = IngredientId;
         this.ingredientName = ingredientName;
         this.dishes = dishes;
     }
@@ -50,11 +50,11 @@ public class Ingredient {
         this.dishes = dishes;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIngredientId() {
+        return IngredientId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIngredientId(Integer id) {
+        this.IngredientId = id;
     }
 }

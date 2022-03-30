@@ -13,6 +13,6 @@ public interface IngredientRepository extends CrudRepository<Ingredient, Integer
     @Query(value = "SELECT i FROM Ingredient i WHERE i.ingredientName like %:keyword%")
     List<Ingredient> findByKeyword(@Param("keyword") String keyword);
 
-
-
+    @Query(value = "SELECT i FROM Ingredient i WHERE i.ingredientName like :keyName")
+    List<Ingredient> findByExactName (@Param("keyName") String keyName);
 }

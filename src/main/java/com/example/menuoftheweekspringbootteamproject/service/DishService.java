@@ -19,7 +19,6 @@ public class DishService {
     @Autowired
     private DishRepository repository;
 
-    //Dish currentDish;
 
     public List<Dish> findAll(){
         Iterable<Dish> dishes = repository.findAll();

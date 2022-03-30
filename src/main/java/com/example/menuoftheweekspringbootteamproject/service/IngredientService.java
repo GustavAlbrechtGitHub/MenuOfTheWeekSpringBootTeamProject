@@ -37,9 +37,19 @@ public class IngredientService {
         return ingredients;
 
     }
+    public Ingredient findByExactName(String keyName){
 
-    public void save(Ingredient ingredient){
-        repository.save(ingredient);
+        List<Ingredient> list = repository.findByExactName(keyName);
+
+        if (list.isEmpty()){
+            return null;
+        }
+        else return list.get(0);
+
+    }
+
+    public Ingredient save(Ingredient ingredient){
+        return repository.save(ingredient);
     }
 
     public Ingredient get(Integer id){
