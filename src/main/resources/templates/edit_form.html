@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Edit Dish</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.1.1/css/bootstrap.min.css}">
-
 </head>
 <body>
 
 <div class="h2 text-center" style="color: darkred">
     <h1>[[${pageTitle}]]</h1>
 </div>
+
 <form th:action="@{'/dishes/save'}"  method="post" style="max-width: 500px; margin: 0 auto" >
 
     <div class="border border-secondary p-4 rounded">
@@ -25,7 +25,6 @@
                 <input class="form-control" type="hidden" th:field="*{dish.id}" th:value="${dish.id}" th:readonly="true">
             </div>
 
-
             <table class="mb-4">
                 <tr>
                     <td>Select type</td>
@@ -37,14 +36,10 @@
                         </select>
                     </td>
                 </tr>
-
             </table>
-
-
         </div>
 
         <div class="col-sm-3">
-
             <button class="btn btn-outline-success" type="submit">Add Ingredient</button>
         </div>
     </div>

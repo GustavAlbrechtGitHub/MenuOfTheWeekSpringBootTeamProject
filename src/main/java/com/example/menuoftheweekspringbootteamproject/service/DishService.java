@@ -67,6 +67,35 @@ public class DishService {
 
         dish.setLikes(1);
         repository.save(dish);
-
     }
+
+    public List<Dish> generateList(List<Dish> allDishes, Integer listSize){
+
+        List<Integer> allDishesId = new ArrayList<>();
+        List<Integer> selectedIds = new ArrayList<>();
+
+        allDishes.stream().forEach(dish -> allDishesId.add(dish.getId()));
+
+        ThreadLocalRandom.current()
+                .ints(0, allDishesId.size())
+                .distinct().limit(listSize)
+                .forEach(d -> selectedIds.add(allDishesId.get(d)));
+
+        return findAllById(selectedIds);
+    }
+
+    public Dish resetDishListOfIngredients(Dish dish){
+
+        Dish existingDish = findById(dish.getId());
+
+        List<Ingredient> ingredients = existingDish.getIngredients();
+        ingredients.stream().forEach(ingredient -> ingredient.getDishes().remove(existingDish));
+
+        existingDish.setIngredients(new ArrayList<>());
+        existingDish.setDescription(dish.getDescription());
+
+        return existingDish;
+    }
+
+
 }
