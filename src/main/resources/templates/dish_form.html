@@ -5,26 +5,25 @@
     <title>[[${pageTitle}]]</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.1.1/css/bootstrap.min.css}">
 </head>
-<body>
-<div class="h2 text-center" style="color: darkred">
+<body class="bg-light" >
+<div class="h2 text-center p-4">
     <h1>[[${pageTitle}]]</h1>
 </div>
 <form th:action="@{'/dishes/save'}" method="post" style="max-width: 500px; margin: 0 auto" >
 
-    <div class="border border-secondary p-4 rounded">
+    <div class="border border-secondary p-4 rounded" style="background-color: snow" >
         <div class="form-group row">
 
-            <label class="col-sm-4">Name</label>
-            <div class="col-sm-8 mb-3">
+            <label class="col-sm-4 p-3">Name</label>
+            <div class="col-sm-6 mb-4 p-3">
                 <input class="form-control" type="text" required th:field="*{dish.name}">
             </div>
 
             <table class="mb-4">
                 <tr>
-                    <td>Select type</td>
+                    <td class="p-3">Select type</td>
                     <td>
-                        <select required th:field="*{dish.description}">
-                            <option value="none"> --</option>
+                        <select class="p-lg-2" required th:field="*{dish.description}">
                             <option value="Vegetarian"> Vegetarian</option>
                             <option value="Non-Vegetarian"> Non-Vegetarian</option>
                         </select>
@@ -34,11 +33,11 @@
         </div>
 
         <div class="col-sm-12">
-            <button class="btn btn-outline-success" type="submit">Add Ingredients</button>
+            <button class="btn btn-outline-dark" style="background-color: snow" type="submit">Add Ingredients</button>
         </div>
     </div>
     <br/>
-    <a class="btn btn-outline-danger" th:href="@{/dishes/startpage}">Cancel</a>
+    <a class="btn btn-outline-danger" style="background-color: snow" th:href="@{/dishes/startpage}">Cancel</a>
 </form>
 </body>
 </html>
