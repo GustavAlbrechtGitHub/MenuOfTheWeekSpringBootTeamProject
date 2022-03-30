@@ -1,22 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>[[${pageTitle}]]</title>
+    <title>Edit Dish</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.1.1/css/bootstrap.min.css}">
+
 </head>
 <body>
+
 <div class="h2 text-center" style="color: darkred">
     <h1>[[${pageTitle}]]</h1>
 </div>
-<form th:action="@{'/dishes/save'}" method="post" style="max-width: 500px; margin: 0 auto" >
+<form th:action="@{'/dishes/save'}"  method="post" style="max-width: 500px; margin: 0 auto" >
 
     <div class="border border-secondary p-4 rounded">
         <div class="form-group row">
 
             <label class="col-sm-4">Name</label>
             <div class="col-sm-8 mb-3">
-                <input class="form-control" type="text" required th:field="*{dish.name}">
+                <input class="form-control" type="text" th:field="*{dish.name}" th:value="${dish.name}" th:readonly="true">
+            </div>
+
+            <div class="col-sm-8 mb-3">
+                <input class="form-control" type="hidden" th:field="*{dish.id}" th:value="${dish.id}" th:readonly="true">
             </div>
 
 
@@ -42,10 +48,7 @@
             <button class="btn btn-outline-success" type="submit">Add Ingredient</button>
         </div>
     </div>
-    <br/>
-    <a class="btn btn-outline-danger" th:href="@{/dishes/startpage}">Cancel</a>
+    <a class="h4" th:href="@{/dishes/new}">Cancel</a>
 </form>
-
-
 </body>
 </html>

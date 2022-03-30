@@ -41,6 +41,7 @@
                 <th>Edit</th>
                 <th>Delete</th>
                 <th>Like</th>
+                <th>View ingredients</th>
             </tr>
             </thead>
             <tbody>
@@ -56,6 +57,7 @@
                     <td><a class="h4 m-3" th:href="@{'/dishes/edit/' + ${dish.id}}">Edit</a></td>
                     <td><a class="h4 m-3" th:href="@{'/dishes/delete/' + ${dish.id}}">Delete</a></td>
                     <td><a class="h4 m-3" th:href="@{'/dishes/like/' + ${dish.id}}">Like</a></td>
+                    <td><a class="h4 m-3" th:href="@{'/dishes/view ingredients/' + ${dish.id}}">View ingredients</a></td>
 
 
                 </tr>
