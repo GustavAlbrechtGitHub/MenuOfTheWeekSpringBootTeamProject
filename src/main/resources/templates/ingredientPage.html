@@ -14,12 +14,14 @@
     <table class="table table-bordered">
         <thead class="table-light">
         <tr>
+            <th>ID</th>
             <th>Name</th>
         </tr>
         </thead>
         <tbody>
         <th:block th:each="ingredient : ${ingredientList}">
             <tr>
+                <td th:text="${ingredient.ingredientId}"></td>
                 <td th:text="${ingredient.ingredientName}"></td>
 
             </tr>
