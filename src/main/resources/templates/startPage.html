@@ -6,64 +6,71 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" type="text/css"/>
 </head>
 <body>
+
 <div>
-
-    <div class="container-fluid mb-3 p-4">
-        <div class="h2  text-center">Manage Menu</div>
-    </div>
+    <div class="h2" style="color: green;font-family: fantasy">Manage Menu</div>
 
 
+<!--    <div class='img-fluid w-100 opacity-85' style="background-image:-->
+<!--url('https://cdn5.vectorstock.com/i/1000x1000/33/44/menu-design-template-vector-1183344.jpg'); height: 100vh;-->
+<!--background-repeat: no-repeat; background-position: center;-->
+<!--max-width: 100px; margin-top: 50px">-->
 
-<div class="container-fluid p-4 row row-cols-3" >
-    <div class="ps-md-5">
-    <a class="h4 btn btn-outline-dark" th:href="@{/dishes/new}">Add New Dish</a>
-    </div>
-    <div class="text-center">
-        <a class="h4 btn btn-outline-dark" th:href="@{/dishes/menu}">Menu Of The Week</a>
-    </div>
-    <div>
-    <form th:action="@{/dishes}" method="get">
-        <input class="rounded m-1" type="text" name="keyword">
-        <button class="btn btn-outline-dark" type="submit">Search</button>
-    </form>
-    </div>
-</div>
 
-</div>
+        <div class="container-fluid p-4 row row-cols-3">
+            <div class="ps-md-5">
+                <a class="h4 btn btn-outline-dark" th:href="@{/dishes/new}">Add New Dish</a>
+            </div>
+            <div class="text-center">
+                <a class="h4 btn btn-outline-dark" th:href="@{/dishes/menu}">Menu Of The Week</a>
+            </div>
+            <div>
+                <form th:action="@{/dishes}" method="get">
+                    <input class="rounded m-1" type="text" name="keyword">
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
 
-<div class="container-fluid text-center">
 
-    <div style="background-color: snow">
-        <table class="table table-bordered">
-            <thead class="table-light">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Likes</th>
-                <th>Edit</th>
-                <th>Delete</th>
-                <th>Like</th>
-                <th>View ingredients</th>
-            </tr>
-            </thead>
-            <tbody>
-            <th:block th:each="dish : ${dishList}">
-                <tr>
-                    <td th:text="${dish.id}"></td>
-                    <td th:text="${dish.name}"></td>
-                    <td th:text="${dish.description}"></td>
-                    <td th:text="${dish.likes}"></td>
+        <div class="container-fluid text-center opacity-75">
 
-                    <td><a class="h4 m-3 btn btn-warning" th:href="@{'/dishes/edit/' + ${dish.id}}">Edit</a></td>
-                    <td><a class="h4 m-3 btn btn-danger" th:href="@{'/dishes/delete/' + ${dish.id}}">Delete</a></td>
-                    <td><a class="h4 m-3 btn btn-success" th:href="@{'/dishes/like/' + ${dish.id}}">Like</a></td>
-                    <td><a class="h4 m-3 btn btn-info" th:href="@{'/dishes/view ingredients/' + ${dish.id}}">View
-                        ingredients</a></td>
-                </tr>
-            </th:block>
-            </tbody>
-        </table>
+            <div style="background-color: snow">
+                <table class="table table-bordered opacity-85">
+                    <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Likes</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        <th>Like</th>
+                        <th>View ingredients</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="dish : ${dishList}">
+                        <tr>
+                            <td th:text="${dish.id}"></td>
+                            <td th:text="${dish.name}"></td>
+                            <td th:text="${dish.description}"></td>
+                            <td th:text="${dish.likes}"></td>
+
+                            <td><a class="h4 m-3 btn btn-warning" th:href="@{'/dishes/edit/' + ${dish.id}}">Edit</a>
+                            </td>
+                            <td><a class="h4 m-3 btn btn-danger" th:href="@{'/dishes/delete/' + ${dish.id}}">Delete</a>
+                            </td>
+                            <td><a class="h4 m-3 btn btn-success" th:href="@{'/dishes/like/' + ${dish.id}}">Like</a>
+                            </td>
+                            <td><a class="h4 m-3 btn btn-info" th:href="@{'/dishes/view ingredients/' + ${dish.id}}">View
+                                ingredients</a></td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
