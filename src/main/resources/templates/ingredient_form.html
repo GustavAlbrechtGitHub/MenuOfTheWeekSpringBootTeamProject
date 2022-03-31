@@ -7,19 +7,26 @@
 </head>
 <body>
 
-<div class="h2 text-center">[[${pageTitle}]]</div>
+<div class="h2 text-center p-4">
+    <h1>[[${pageTitle}]]</h1>
+</div>
+
+<div class="border border-secondary p-4 rounded mb-4" style="background-color: snow; max-width: 500px; margin: 0 auto">
+    <label class="col-sm-3">Dish</label>
+    <input type="text" readonly th:value="${dish.name}"/>
+</div>
+
 <form th:action="@{'/ingredients/save/' + ${dish.id}}" method="post"  style="max-width: 500px; margin: 0 auto" >
 
-    <div class="border border-secondary p-4 rounded">
+    <div class="border border-secondary p-4 rounded mb-4" style="background-color: snow">
         <div class="form-group row">
 
             <div class="col-sm-8 mb-3">
-                <label class="col-sm-3">Name</label>
+                <label class="col-sm-3">Ingredient</label>
               <input type="text" required th:field="*{ingredient.ingredientName}" class="form-control"/>
             </div>
 
             <div class="mb-3">
-                <label class="col-sm-3"></label>
                 <button class="btn btn-outline-success" type="submit">Save Ingredient</button>
             </div>
 
@@ -40,10 +47,12 @@
                 </table>
             </div>
 
-    <a class="btn btn-outline-success col-sm-4" th:href="@{/dishes}">Done</a>
-
         </div>
     </div>
+    <div>
+        <a class="btn btn-outline-success col-sm-2" th:href="@{/dishes}">Done</a>
+    </div>
+
 </form>
 </body>
 </html>

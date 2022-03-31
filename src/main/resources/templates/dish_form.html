@@ -6,9 +6,11 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.1.1/css/bootstrap.min.css}">
 </head>
 <body class="bg-light" >
+
 <div class="h2 text-center p-4">
     <h1>[[${pageTitle}]]</h1>
 </div>
+
 <form th:action="@{'/dishes/save'}" method="post" style="max-width: 500px; margin: 0 auto" >
 
     <div class="border border-secondary p-4 rounded" style="background-color: snow" >

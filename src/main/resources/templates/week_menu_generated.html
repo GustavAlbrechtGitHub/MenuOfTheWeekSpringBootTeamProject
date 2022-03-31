@@ -6,7 +6,10 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" type="text/css"/>
 </head>
 <body>
-
+<br/>
+<div class="mb-5 text-center">
+    <h1> Menu of the Week</h1>
+</div>
 <div>
     <table class="table table-bordered">
         <thead class="table-light">
@@ -15,6 +18,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Likes</th>
+            <th>View ingredients</th>
         </tr>
         </thead>
         <tbody>
@@ -24,6 +28,9 @@
                 <td th:text="${dish.name}"></td>
                 <td th:text="${dish.description}"></td>
                 <td th:text="${dish.likes}"></td>
+                <td><a class="btn btn-outline-dark" th:href="@{'/dishes/view ingredients/' + ${dish.id}}">View
+                    ingredients</a></td>
+
             </tr>
         </th:block>
         </tbody>
