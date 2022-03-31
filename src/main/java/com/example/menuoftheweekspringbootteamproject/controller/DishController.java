@@ -171,4 +171,74 @@ public class DishController {
 
         return "week_menu_generated";
     }
+
+    @GetMapping("/dishes/menu/vegetarian")
+    public String showWeekMenuVegetarian(Model model) {
+
+        List<Dish> allDishes = service.findAll();
+
+        List<Dish> allVegetarianDishes = new ArrayList<>();
+
+        allDishes.stream()
+                .filter(d -> d.getDescription().equals("Vegetarian"))
+                .forEach(d -> allVegetarianDishes.add(d) );
+
+        if (allVegetarianDishes.size() < 7) {
+            return "error_page";
+        }
+
+        List<Dish> selectedDishes = service.generateList(allVegetarianDishes, 7);
+
+        model.addAttribute("pageTitle", "Vegetarian Menu");
+        model.addAttribute("generatedList", selectedDishes);
+
+        return "week_menu_generated";
+    }
+
+    @GetMapping("/dishes/menu/non-vegetarian")
+    public String showWeekMenuNonVegetarian(Model model) {
+
+        List<Dish> allDishes = service.findAll();
+
+        List<Dish> allNonVegetarianDishes = new ArrayList<>();
+
+        allDishes.stream()
+                .filter(d -> d.getDescription().equals("Non-Vegetarian"))
+                .forEach(d -> allNonVegetarianDishes.add(d) );
+
+        if (allNonVegetarianDishes.size() < 7) {
+            return "error_page";
+        }
+
+        List<Dish> selectedDishes = service.generateList(allNonVegetarianDishes, 7);
+
+        model.addAttribute("pageTitle", "Non-Vegetarian Menu");
+        model.addAttribute("generatedList", selectedDishes);
+
+        return "week_menu_generated";
+    }
+
+    @GetMapping("/dishes/menu/popular")
+    public String showWeekMenuNonPopular(Model model) {
+
+        List<Dish> allDishes = service.findAll();
+
+        List<Dish> popularDishes = new ArrayList<>();
+
+        if (allDishes.size() < 7) {
+            return "error_page";
+        }
+
+        allDishes.stream()
+                .sorted((d1,d2)->Integer.compare(d2.getLikes(),d1.getLikes()))
+                .limit(7)
+                .forEach(d -> popularDishes.add(d) );
+
+
+
+        model.addAttribute("pageTitle", "Popular Menu");
+        model.addAttribute("generatedList", popularDishes);
+
+        return "week_menu_generated";
+    }
 }
