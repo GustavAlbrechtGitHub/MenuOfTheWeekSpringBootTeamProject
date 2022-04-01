@@ -254,6 +254,6 @@ public class DishController {
     @GetMapping("/dishes/orders")
     public String showOrders(Model model){
         model.addAttribute("orders", orders);
-        return "orderPage";
+        return "order_page";
     }
 }
