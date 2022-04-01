@@ -1,5 +1,6 @@
 package com.example.menuoftheweekspringbootteamproject.service;
 
+import com.example.menuoftheweekspringbootteamproject.DishListDto;
 import com.example.menuoftheweekspringbootteamproject.dao.DishRepository;
 import com.example.menuoftheweekspringbootteamproject.model.Dish;
 import com.example.menuoftheweekspringbootteamproject.model.Ingredient;
@@ -96,6 +97,21 @@ public class DishService {
 
         return existingDish;
     }
+
+    public List<Ingredient> getIngredientsFromDishDto (DishListDto dishListDto){
+
+        List<Ingredient> ingredients = new ArrayList<>();
+        List<Integer> menuDishesId = new ArrayList<>();
+
+        dishListDto.getDishList().stream().forEach(dish -> menuDishesId.add(dish.getId()));
+
+        List<Dish> menuDishes = findAllById(menuDishesId);
+
+        menuDishes.stream().forEach(dish -> ingredients.addAll(dish.getIngredients()));
+
+        return ingredients;
+    }
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.menuoftheweekspringbootteamproject.controller;
 
 import com.example.menuoftheweekspringbootteamproject.DishListDto;
+import com.example.menuoftheweekspringbootteamproject.ShoppingIngredientDto;
 import com.example.menuoftheweekspringbootteamproject.model.Dish;
 import com.example.menuoftheweekspringbootteamproject.model.Ingredient;
 import com.example.menuoftheweekspringbootteamproject.service.DishService;
@@ -11,8 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class DishController {
@@ -27,13 +31,15 @@ public class DishController {
 
 
     @GetMapping("/dishes")
-    public String findAll(Model model, String keyword) {
+    public String findAll(Model model, String keyword, RedirectAttributes ra) {
 
         if (keyword != null)
             model.addAttribute("dishList", service.findByKeyword(keyword));
         else {
             List<Dish> dishes = service.findAll();
+
             model.addAttribute("dishList", dishes);
+            ra.addFlashAttribute("message", "The dish has been saved succesfully");
         }
 
         return "start_page";
@@ -259,6 +265,7 @@ public class DishController {
 
     @GetMapping("/dishes/add to orders/{id}")
     public String addDishToOrders(@PathVariable("id") Integer id, Model model, RedirectAttributes ra){
+
         Dish dish = service.findById(id);
         orders.add(dish);
         ra.addFlashAttribute("message", "The Dish ID: " + id + " has been added to your orders!");
@@ -268,6 +275,7 @@ public class DishController {
 
     @GetMapping("/dishes/orders")
     public String showOrders(Model model){
+
         model.addAttribute("orders", orders);
         return "order_page";
     }
@@ -276,18 +284,38 @@ public class DishController {
     @PostMapping("/dishes/shoppingList")
     public String showShoppingList( DishListDto dishListDto, Model model){
 
-        List<Ingredient> ingredients = new ArrayList<>();
-        List<Integer> menuDishesId = new ArrayList<>();
+        List<ShoppingIngredientDto> shoppingIngredients = new ArrayList<>();
 
-        dishListDto.getDishList().stream().forEach(dish -> menuDishesId.add(dish.getId()));
+        List<Ingredient> ingredients = service.getIngredientsFromDishDto(dishListDto);
+        List<Integer> quantities = new ArrayList<>();
 
-        List<Dish> menuDishes = service.findAllById(menuDishesId);
 
-        menuDishes.stream().forEach(dish -> ingredients.addAll(dish.getIngredients()));
+        for (int i = 0; i < ingredients.size(); i++) {
 
-        ingredients.stream().forEach(ingredient -> System.out.println(ingredient.getIngredientName()));
+            Integer quantity = 1;
 
-        model.addAttribute("ingredients", ingredients);
+            for (int j = i+1; j < ingredients.size(); j++) {
+
+                if (ingredients.get(i).getIngredientName() == ingredients.get(j).getIngredientName()) {
+
+                    quantity++;
+                    ingredients.remove(j);
+                    j--;
+                }
+            }
+
+            quantities.add(quantity);
+        }
+
+        for (int i = 0; i < ingredients.size(); i++) {
+            System.out.println(i);
+            shoppingIngredients.add(new ShoppingIngredientDto());
+            shoppingIngredients.get(i).setShoppingIngredientName(ingredients.get(i).getIngredientName());
+            shoppingIngredients.get(i).setShoppingQuantity(quantities.get(i));
+        }
+
+        model.addAttribute("ingredients", shoppingIngredients);
+        model.addAttribute("quantities", quantities);
 
         return "shopping_list_page";
     }
