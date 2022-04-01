@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:height="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" type="text/css"/>
+</head>
+<body>
+
+<div class="mb-4 text-center opacity-75">
+    <h3 style="color: green;font-family: fantasy"> Order </h3>
+</div>
+
+<div class="mb-4 text-center">
+    <a class="btn btn-outline-danger" style="background-color: snow" th:href="@{/dishes/start_page}">Back To Menu</a>
+</div>
+
+<div class="container-fluid text-center opacity-75">
+
+    <div style="background-color: snow">
+        <table class="table table-bordered">
+            <thead class="table-light">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="order : ${orders}">
+                <tr>
+
+                   <td th:text="${order.name}"></td>
+                    <td th:text="${order.description}"></td>
+
+
+
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+</body>
+</html>

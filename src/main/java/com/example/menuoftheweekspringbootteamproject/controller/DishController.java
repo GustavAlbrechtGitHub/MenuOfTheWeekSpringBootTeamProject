@@ -244,8 +244,6 @@ public class DishController {
     public String addDishToOrders(@PathVariable("id") Integer id, Model model, RedirectAttributes ra){
         Dish dish = service.findById(id);
         orders.add(dish);
-        List<Dish> dishes = service.findAll();
-        model.addAttribute("dishList", dishes);
         ra.addFlashAttribute("message", "The Dish ID: " + id + " has been added to your orders!");
 
         return "redirect:/dishes/start_page";
