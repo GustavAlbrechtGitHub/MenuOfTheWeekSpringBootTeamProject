@@ -25,10 +25,15 @@ height: 1300px">
         <div class="col-2">
             <a class="h4 btn btn-outline-dark" th:href="@{/dishes/menu}"> Menu Of The Week</a>
         </div>
+        <div class="col-2">
+            <a class="h4 btn btn-outline-dark" th:href="@{/dishes/orders}"> View Your Orders</a>
+        </div>
     </div>
 </div>
 
-<div class="mb-4 text-center opacity-75">
+    <div th:if="${message}" class="alert alert-success text-center"> ${message} </div>
+
+    <div class="mb-4 text-center opacity-75">
     <h3 style="color: green;font-family: fantasy"> Dishes </h3>
 </div>
 
@@ -54,6 +59,7 @@ height: 1300px">
                 <th>Delete</th>
                 <th>Like</th>
                 <th>View ingredients</th>
+                <th>Add to orders</th>
             </tr>
             </thead>
             <tbody>
@@ -69,6 +75,7 @@ height: 1300px">
                     <td><a class="h4 m-3 btn btn-success" th:href="@{'/dishes/like/' + ${dish.id}}">Like</a></td>
                     <td><a class="h4 m-3 btn btn-info" th:href="@{'/dishes/view ingredients/' + ${dish.id}}">View
                         ingredients</a></td>
+                    <td><a class="h4 m-3 btn btn-dark" th:href="@{'/dishes/add to orders/' + ${dish.id}}">Add to orders</a></td>
                 </tr>
             </th:block>
             </tbody>

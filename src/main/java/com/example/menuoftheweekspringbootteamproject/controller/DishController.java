@@ -16,11 +16,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @Controller
 public class DishController {
+
+    private List<Dish> orders = new ArrayList<>();
 
     @Autowired
     private DishService service;
@@ -240,5 +243,21 @@ public class DishController {
         model.addAttribute("generatedList", popularDishes);
 
         return "week_menu_generated";
+    }
+
+    @GetMapping("/dishes/add to orders/{id}")
+    public String addDishToOrders(@PathVariable("id") Integer id, Model model){
+        Dish dish = service.findById(id);
+        orders.add(dish);
+        List<Dish> dishes = service.findAll();
+        model.addAttribute("dishList", dishes);
+
+        return "startPage";
+    }
+
+    @GetMapping("/dishes/orders")
+    public String showOrders(Model model){
+        model.addAttribute("orders", orders);
+        return "orderPage";
     }
 }
