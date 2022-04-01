@@ -11,31 +11,56 @@
 <div class="mb-5 text-center">
     <h3> Menu of the Week</h3>
 </div>
-<div>
-    <table class="table table-bordered">
-        <thead class="table-light">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Likes</th>
-            <th>View ingredients</th>
-        </tr>
-        </thead>
-        <tbody>
-        <th:block th:each="dish : ${generatedList}">
-            <tr>
-                <td th:text="${dish.id}"></td>
-                <td th:text="${dish.name}"></td>
-                <td th:text="${dish.description}"></td>
-                <td th:text="${dish.likes}"></td>
-                <td><a class="btn btn-outline-dark" th:href="@{'/dishes/view ingredients/' + ${dish.id}}">View
-                    ingredients</a></td>
+<form action="#" th:action="@{/dishes/shoppingList}" th:object="${dishListDto}" method="post">
+    <div>
+        <div class="mb-3">
+            <button class=" btn btn-outline-success" type="submit"> View Shopping List</button>
+        </div>
+        <div>
+            <table class="table table-bordered">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Likes</th>
+                    <th>View ingredients</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="dish : ${generatedList}">
+                    <tr>
+                        <td th:text="${dish.id}"></td>
+                        <td th:text="${dish.name}"></td>
+                        <td th:text="${dish.description}"></td>
+                        <td th:text="${dish.likes}"></td>
+                        <td><a class="btn btn-outline-dark" th:href="@{'/dishes/view ingredients/' + ${dish.id}}">View
+                            ingredients</a></td>
 
-            </tr>
-        </th:block>
-        </tbody>
-    </table>
-</div>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div hidden>
+        <fieldset>
+            <input type="submit" id="submitButton" th:value="save">
+            <table class="table table-bordered">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="dish, itemStat : *{dishList}">
+                    <td><input th:field="*{dishList[__${itemStat.index}__].id}"/></td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</form>
 </body>
 </html>

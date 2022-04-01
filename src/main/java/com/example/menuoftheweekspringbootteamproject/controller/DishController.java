@@ -1,5 +1,6 @@
 package com.example.menuoftheweekspringbootteamproject.controller;
 
+import com.example.menuoftheweekspringbootteamproject.DishListDto;
 import com.example.menuoftheweekspringbootteamproject.model.Dish;
 import com.example.menuoftheweekspringbootteamproject.model.Ingredient;
 import com.example.menuoftheweekspringbootteamproject.service.DishService;
@@ -7,9 +8,7 @@ import com.example.menuoftheweekspringbootteamproject.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -164,8 +163,13 @@ public class DishController {
 
         List<Dish> selectedDishes = service.generateList(allDishes, 7);
 
+        DishListDto dishListDto = new DishListDto();
+        dishListDto.setDishList(selectedDishes);
+
         model.addAttribute("pageTitle", "Random Menu");
         model.addAttribute("generatedList", selectedDishes);
+        model.addAttribute("dishListDto", dishListDto);
+
 
         return "week_menu_generated";
     }
@@ -187,8 +191,13 @@ public class DishController {
 
         List<Dish> selectedDishes = service.generateList(allVegetarianDishes, 7);
 
+        DishListDto dishListDto = new DishListDto();
+        dishListDto.setDishList(selectedDishes);
+
         model.addAttribute("pageTitle", "Vegetarian Menu");
         model.addAttribute("generatedList", selectedDishes);
+        model.addAttribute("dishListDto", dishListDto);
+
 
         return "week_menu_generated";
     }
@@ -210,8 +219,13 @@ public class DishController {
 
         List<Dish> selectedDishes = service.generateList(allNonVegetarianDishes, 7);
 
+        DishListDto dishListDto = new DishListDto();
+        dishListDto.setDishList(selectedDishes);
+
         model.addAttribute("pageTitle", "Non-Vegetarian Menu");
         model.addAttribute("generatedList", selectedDishes);
+        model.addAttribute("dishListDto", dishListDto);
+
 
         return "week_menu_generated";
     }
@@ -233,9 +247,12 @@ public class DishController {
                 .forEach(d -> popularDishes.add(d) );
 
 
+        DishListDto dishListDto = new DishListDto();
+        dishListDto.setDishList(popularDishes);
 
         model.addAttribute("pageTitle", "Popular Menu");
         model.addAttribute("generatedList", popularDishes);
+        model.addAttribute("dishListDto", dishListDto);
 
         return "week_menu_generated";
     }
@@ -253,5 +270,25 @@ public class DishController {
     public String showOrders(Model model){
         model.addAttribute("orders", orders);
         return "order_page";
+    }
+
+
+    @PostMapping("/dishes/shoppingList")
+    public String showShoppingList( DishListDto dishListDto, Model model){
+
+        List<Ingredient> ingredients = new ArrayList<>();
+        List<Integer> menuDishesId = new ArrayList<>();
+
+        dishListDto.getDishList().stream().forEach(dish -> menuDishesId.add(dish.getId()));
+
+        List<Dish> menuDishes = service.findAllById(menuDishesId);
+
+        menuDishes.stream().forEach(dish -> ingredients.addAll(dish.getIngredients()));
+
+        ingredients.stream().forEach(ingredient -> System.out.println(ingredient.getIngredientName()));
+
+        model.addAttribute("ingredients", ingredients);
+
+        return "shopping_list_page";
     }
 }
