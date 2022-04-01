@@ -21,6 +21,8 @@ public class Dish {
     private int likes;
 
 
+
+
     @ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "dishes", fetch = FetchType.EAGER)
     List<Ingredient> ingredients;
 

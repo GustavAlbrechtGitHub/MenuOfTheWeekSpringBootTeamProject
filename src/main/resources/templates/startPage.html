@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Menu Of The Week</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"/>
 </head>
 <body>
 <div class='img-fluid w-100' style="background-image:
@@ -14,16 +15,16 @@ height: 1300px">
 <div>
 
     <div class="container-fluid p-4">
-        <div style="color: green;font-family: fantasy" class="h2  text-center"> Dish Menu</div>
+        <div style="color: green;font-family: fantasy" class="h1  text-center"> Dish Menu</div>
     </div>
 
 
     <div class="container-fluid p-4 row row-cols-12 mb-4">
         <div class="ps-md-5 col-2 offset-4">
-            <a class="h4 btn btn-outline-dark" th:href="@{/dishes/new}">Add New Dish</a>
+            <a class="h4 btn btn-outline-dark " th:href="@{/dishes/new}">Add New Dish</a>
         </div>
         <div class="col-2">
-            <a class="h4 btn btn-outline-dark" th:href="@{/dishes/menu}"> Menu Of The Week</a>
+            <a class="h4 btn btn-outline-dark " th:href="@{/dishes/menu}"> Menu Of The Week</a>
         </div>
         <div class="col-2">
             <a class="h4 btn btn-outline-dark" th:href="@{/dishes/orders}"> View Your Orders</a>
@@ -40,7 +41,7 @@ height: 1300px">
 <div class="text-center mb-3">
     <form th:action="@{/dishes}" method="get">
         <input class="rounded m-1" type="text" name="keyword">
-        <button class="btn btn-outline-dark" type="submit">Search</button>
+        <button class="btn btn-outline-dark bi bi-search" type="submit"></button>
     </form>
 </div>
 
@@ -70,11 +71,10 @@ height: 1300px">
                     <td th:text="${dish.description}"></td>
                     <td th:text="${dish.likes}"></td>
 
-                    <td><a class="h4 m-3 btn btn-warning" th:href="@{'/dishes/edit/' + ${dish.id}}">Edit</a></td>
-                    <td><a class="h4 m-3 btn btn-danger" th:href="@{'/dishes/delete/' + ${dish.id}}">Delete</a></td>
-                    <td><a class="h4 m-3 btn btn-success" th:href="@{'/dishes/like/' + ${dish.id}}">Like</a></td>
-                    <td><a class="h4 m-3 btn btn-info" th:href="@{'/dishes/view ingredients/' + ${dish.id}}">View
-                        ingredients</a></td>
+                    <td><a class="h4 m-3 btn btn-warning bi bi-pencil-fill" th:href="@{'/dishes/edit/' + ${dish.id}}"></a></td>
+                    <td><a class="h4 m-3 btn btn-danger bi bi-trash" th:href="@{'/dishes/delete/' + ${dish.id}}"></a></td>
+                    <td><a class="h4 m-3 btn btn-success bi bi-hand-thumbs-up" th:href="@{'/dishes/like/' + ${dish.id}}"></a></td>
+                    <td><a class="h4 m-3 btn btn-info bi bi-bag" th:href="@{'/dishes/view ingredients/' + ${dish.id}}"></a></td>
                     <td><a class="h4 m-3 btn btn-dark" th:href="@{'/dishes/add to orders/' + ${dish.id}}">Add to orders</a></td>
                 </tr>
             </th:block>
@@ -82,6 +82,7 @@ height: 1300px">
         </table>
     </div>
 </div>
+    </div>
 
 </body>
 
