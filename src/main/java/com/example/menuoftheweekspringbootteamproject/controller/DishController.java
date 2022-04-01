@@ -10,15 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 @Controller
 public class DishController {
@@ -42,7 +37,7 @@ public class DishController {
             model.addAttribute("dishList", dishes);
         }
 
-        return "startPage";
+        return "start_page";
     }
 
     @GetMapping("/dishes/new")
@@ -108,7 +103,7 @@ public class DishController {
         model.addAttribute("dishList", dishes);
         ra.addFlashAttribute("message", "The Dish ID: " + id + " has been deleted ");
 
-        return "startPage";
+        return "redirect:/dishes/start_page";
     }
 
     @GetMapping("/dishes/like/{id}")
@@ -121,7 +116,7 @@ public class DishController {
         model.addAttribute("dishList", dishes);
         ra.addFlashAttribute("message", "The Dish ID: " + id + " has been liked! ");
 
-        return "startPage";
+        return "redirect:/dishes/start_page";
     }
 
     @GetMapping("/dishes/index")
@@ -130,14 +125,14 @@ public class DishController {
         return "index";
     }
 
-    @GetMapping("/dishes/startpage")
+    @GetMapping("/dishes/start_page")
     public String findAll2(Model model) {
 
         List<Dish> dishes = service.findAll();
 
         model.addAttribute("dishList", dishes);
 
-        return "startPage";
+        return "start_page";
     }
 
     @GetMapping("/dishes/view ingredients/{id}")
@@ -149,7 +144,7 @@ public class DishController {
 
         model.addAttribute("ingredientList", ingredients);
 
-        return "ingredientPage";
+        return "ingredient_page";
     }
 
     @GetMapping("/dishes/menu")
@@ -246,13 +241,14 @@ public class DishController {
     }
 
     @GetMapping("/dishes/add to orders/{id}")
-    public String addDishToOrders(@PathVariable("id") Integer id, Model model){
+    public String addDishToOrders(@PathVariable("id") Integer id, Model model, RedirectAttributes ra){
         Dish dish = service.findById(id);
         orders.add(dish);
         List<Dish> dishes = service.findAll();
         model.addAttribute("dishList", dishes);
+        ra.addFlashAttribute("message", "The Dish ID: " + id + " has been added to your orders!");
 
-        return "startPage";
+        return "redirect:/dishes/start_page";
     }
 
     @GetMapping("/dishes/orders")
