@@ -8,30 +8,32 @@
 <body>
 <div>
 
-    <div class="container-fluid mb-3 p-4">
-        <div class="h2  text-center">Manage Menu</div>
+    <div class="container-fluid p-4">
+        <div class="h2  text-center"> Dish Menu</div>
     </div>
 
 
-    <div class="container-fluid p-4 row row-cols-3">
-        <div class="ps-md-5">
+    <div class="container-fluid p-4 row row-cols-12 mb-4">
+        <div class="ps-md-5 col-2 offset-4">
             <a class="h4 btn btn-outline-dark" th:href="@{/dishes/new}">Add New Dish</a>
         </div>
-        <div class="text-center">
-            <a class="h4 btn btn-outline-dark" th:href="@{/dishes/menu}">Menu Of The Week</a>
-        </div>
-        <div>
-            <form th:action="@{/dishes}" method="get">
-                <input class="rounded m-1" type="text" name="keyword">
-                <button class="btn btn-outline-dark" type="submit">Search</button>
-            </form>
+        <div class="col-2">
+            <a class="h4 btn btn-outline-dark" th:href="@{/dishes/menu}"> Menu Of The Week</a>
         </div>
     </div>
 </div>
 
 <div class="mb-4 text-center">
-    <h1> Dishes </h1>
+    <h3> Dishes </h3>
 </div>
+
+<div class="text-center mb-3">
+    <form th:action="@{/dishes}" method="get">
+        <input class="rounded m-1" type="text" name="keyword">
+        <button class="btn btn-outline-dark" type="submit">Search</button>
+    </form>
+</div>
+
 
 <div class="container-fluid text-center">
 
