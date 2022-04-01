@@ -7,26 +7,27 @@
 
 </head>
 <body>
-<div class="container-fluid text-center p-4">
+<br/>
+<div class="container-fluid text-center p-4 mb-3">
     <h4> Choose a Menu of the Week</h4>
 </div>
 
 <div>
 
-<div class="row row-cols-6">
-    <div class="m-3">
+<div class="container-fluid row row-cols-12 text-center">
+    <div class="col-2">
         <a class="h4 btn btn-outline-dark " th:href="@{/dishes/menu/random}">Menu Of The Week Random</a>
     </div>
     <br/>
-    <div class="m-3">
+    <div class="col-2  offset-1">
         <a class="h4 btn btn-outline-dark" th:href="@{/dishes/menu/vegetarian}">Menu Of The Week Vegetarian</a>
     </div>
     <br/>
-    <div class="m-3">
+    <div class="col-2 offset-2">
         <a class="h4 btn btn-outline-dark" th:href="@{/dishes/menu/non-vegetarian}">Menu Of The Week Non-Vegetarian</a>
     </div>
     <br/>
-    <div class="m-3">
+    <div class="col-2 offset-1">
         <a class="h4 btn btn-outline-dark" th:href="@{/dishes/menu/popular}">Menu Of The week Popular</a>
     </div>
 </div>
