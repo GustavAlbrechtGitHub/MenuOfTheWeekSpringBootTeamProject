@@ -32,7 +32,9 @@ height: 1300px">
     </div>
 </div>
 
-    <div th:if="${message}" class="alert alert-success text-center"> ${message} </div>
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
 
     <div class="mb-4 text-center opacity-75">
     <h3 style="color: green;font-family: fantasy"> Dishes </h3>
