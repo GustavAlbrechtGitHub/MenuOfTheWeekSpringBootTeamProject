@@ -159,12 +159,15 @@ public class DishController {
     }
 
     @GetMapping("/dishes/menu/random")
-    public String showWeekMenuRandom(Model model) {
+    public String showWeekMenuRandom(Model model, RedirectAttributes ra) {
 
         List<Dish> allDishes = service.findAll();
 
         if (allDishes.size() < 7) {
-            return "error_page";
+
+            ra.addFlashAttribute("message", "You need at least 7 dishes to create this menu! ");
+
+            return "redirect:/dishes/menu";
         }
 
         List<Dish> selectedDishes = service.generateList(allDishes, 7);
@@ -181,7 +184,7 @@ public class DishController {
     }
 
     @GetMapping("/dishes/menu/vegetarian")
-    public String showWeekMenuVegetarian(Model model) {
+    public String showWeekMenuVegetarian(Model model, RedirectAttributes ra) {
 
         List<Dish> allDishes = service.findAll();
 
@@ -192,7 +195,10 @@ public class DishController {
                 .forEach(d -> allVegetarianDishes.add(d) );
 
         if (allVegetarianDishes.size() < 7) {
-            return "error_page";
+
+            ra.addFlashAttribute("message", "You need 7 vegetarian dishes to create this menu! ");
+
+            return "redirect:/dishes/menu";
         }
 
         List<Dish> selectedDishes = service.generateList(allVegetarianDishes, 7);
@@ -209,7 +215,7 @@ public class DishController {
     }
 
     @GetMapping("/dishes/menu/non-vegetarian")
-    public String showWeekMenuNonVegetarian(Model model) {
+    public String showWeekMenuNonVegetarian(Model model, RedirectAttributes ra) {
 
         List<Dish> allDishes = service.findAll();
 
@@ -220,7 +226,10 @@ public class DishController {
                 .forEach(d -> allNonVegetarianDishes.add(d) );
 
         if (allNonVegetarianDishes.size() < 7) {
-            return "error_page";
+
+            ra.addFlashAttribute("message", "You need 7 non-vegetarian dishes to create this menu! ");
+
+            return "redirect:/dishes/menu";
         }
 
         List<Dish> selectedDishes = service.generateList(allNonVegetarianDishes, 7);
@@ -237,14 +246,18 @@ public class DishController {
     }
 
     @GetMapping("/dishes/menu/popular")
-    public String showWeekMenuNonPopular(Model model) {
+    public String showWeekMenuNonPopular(Model model, RedirectAttributes ra) {
 
         List<Dish> allDishes = service.findAll();
 
         List<Dish> popularDishes = new ArrayList<>();
 
         if (allDishes.size() < 7) {
-            return "error_page";
+
+
+            ra.addFlashAttribute("message", "You need at least 7 dishes to create this menu! ");
+
+            return "redirect:/dishes/menu";
         }
 
         allDishes.stream()
