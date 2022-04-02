@@ -1,4 +1,4 @@
-package com.example.menuoftheweekspringbootteamproject;
+package com.example.menuoftheweekspringbootteamproject.dto;
 
 public class ShoppingIngredientDto {
 

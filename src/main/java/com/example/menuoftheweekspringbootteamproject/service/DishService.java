@@ -1,7 +1,8 @@
 package com.example.menuoftheweekspringbootteamproject.service;
 
-import com.example.menuoftheweekspringbootteamproject.DishListDto;
+import com.example.menuoftheweekspringbootteamproject.dto.DishListDto;
 import com.example.menuoftheweekspringbootteamproject.dao.DishRepository;
+import com.example.menuoftheweekspringbootteamproject.dto.ShoppingIngredientDto;
 import com.example.menuoftheweekspringbootteamproject.model.Dish;
 import com.example.menuoftheweekspringbootteamproject.model.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +113,51 @@ public class DishService {
         return ingredients;
     }
 
+    public List<Dish> getDishesByDescription(List<Dish> allDishes, String description){
+
+        List<Dish> dishesWithSelectedDescription = new ArrayList<>();
+
+        allDishes.stream()
+                .filter(d -> d.getDescription().equals(description))
+                .forEach(d -> dishesWithSelectedDescription.add(d) );
+
+        return dishesWithSelectedDescription;
+    }
+
+    public List<ShoppingIngredientDto> generateIngredientListWithQuantity( DishListDto dishListDto){
+
+        List<ShoppingIngredientDto> shoppingIngredients = new ArrayList<>();
+
+        List<Ingredient> ingredients = getIngredientsFromDishDto(dishListDto);
+        List<Integer> quantities = new ArrayList<>();
+
+
+        for (int i = 0; i < ingredients.size(); i++) {
+
+            Integer quantity = 1;
+
+            for (int j = i+1; j < ingredients.size(); j++) {
+
+                if (ingredients.get(i).getIngredientName() == ingredients.get(j).getIngredientName()) {
+
+                    quantity++;
+                    ingredients.remove(j);
+                    j--;
+                }
+            }
+
+            quantities.add(quantity);
+        }
+
+        for (int i = 0; i < ingredients.size(); i++) {
+
+            shoppingIngredients.add(new ShoppingIngredientDto());
+            shoppingIngredients.get(i).setShoppingIngredientName(ingredients.get(i).getIngredientName());
+            shoppingIngredients.get(i).setShoppingQuantity(quantities.get(i));
+        }
+
+        return shoppingIngredients;
+    }
 
 
 }

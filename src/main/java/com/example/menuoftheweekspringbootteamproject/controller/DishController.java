@@ -1,7 +1,7 @@
 package com.example.menuoftheweekspringbootteamproject.controller;
 
-import com.example.menuoftheweekspringbootteamproject.DishListDto;
-import com.example.menuoftheweekspringbootteamproject.ShoppingIngredientDto;
+import com.example.menuoftheweekspringbootteamproject.dto.DishListDto;
+import com.example.menuoftheweekspringbootteamproject.dto.ShoppingIngredientDto;
 import com.example.menuoftheweekspringbootteamproject.model.Dish;
 import com.example.menuoftheweekspringbootteamproject.model.Ingredient;
 import com.example.menuoftheweekspringbootteamproject.service.DishService;
@@ -12,11 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class DishController {
@@ -188,11 +185,7 @@ public class DishController {
 
         List<Dish> allDishes = service.findAll();
 
-        List<Dish> allVegetarianDishes = new ArrayList<>();
-
-        allDishes.stream()
-                .filter(d -> d.getDescription().equals("Vegetarian"))
-                .forEach(d -> allVegetarianDishes.add(d) );
+        List<Dish> allVegetarianDishes = service.getDishesByDescription(allDishes, "Vegetarian");
 
         if (allVegetarianDishes.size() < 7) {
 
@@ -219,11 +212,7 @@ public class DishController {
 
         List<Dish> allDishes = service.findAll();
 
-        List<Dish> allNonVegetarianDishes = new ArrayList<>();
-
-        allDishes.stream()
-                .filter(d -> d.getDescription().equals("Non-Vegetarian"))
-                .forEach(d -> allNonVegetarianDishes.add(d) );
+        List<Dish> allNonVegetarianDishes = service.getDishesByDescription(allDishes, "Non-Vegetarian");
 
         if (allNonVegetarianDishes.size() < 7) {
 
@@ -250,7 +239,7 @@ public class DishController {
 
         List<Dish> allDishes = service.findAll();
 
-        List<Dish> popularDishes = new ArrayList<>();
+        List<Dish> selectedDishes = new ArrayList<>();
 
         if (allDishes.size() < 7) {
 
@@ -263,14 +252,14 @@ public class DishController {
         allDishes.stream()
                 .sorted((d1,d2)->Integer.compare(d2.getLikes(),d1.getLikes()))
                 .limit(7)
-                .forEach(d -> popularDishes.add(d) );
+                .forEach(d -> selectedDishes.add(d) );
 
 
         DishListDto dishListDto = new DishListDto();
-        dishListDto.setDishList(popularDishes);
+        dishListDto.setDishList(selectedDishes);
 
         model.addAttribute("pageTitle", "Popular Menu");
-        model.addAttribute("generatedList", popularDishes);
+        model.addAttribute("generatedList", selectedDishes);
         model.addAttribute("dishListDto", dishListDto);
 
         return "week_menu_generated";
@@ -297,38 +286,9 @@ public class DishController {
     @PostMapping("/dishes/shoppingList")
     public String showShoppingList( DishListDto dishListDto, Model model){
 
-        List<ShoppingIngredientDto> shoppingIngredients = new ArrayList<>();
-
-        List<Ingredient> ingredients = service.getIngredientsFromDishDto(dishListDto);
-        List<Integer> quantities = new ArrayList<>();
-
-
-        for (int i = 0; i < ingredients.size(); i++) {
-
-            Integer quantity = 1;
-
-            for (int j = i+1; j < ingredients.size(); j++) {
-
-                if (ingredients.get(i).getIngredientName() == ingredients.get(j).getIngredientName()) {
-
-                    quantity++;
-                    ingredients.remove(j);
-                    j--;
-                }
-            }
-
-            quantities.add(quantity);
-        }
-
-        for (int i = 0; i < ingredients.size(); i++) {
-            System.out.println(i);
-            shoppingIngredients.add(new ShoppingIngredientDto());
-            shoppingIngredients.get(i).setShoppingIngredientName(ingredients.get(i).getIngredientName());
-            shoppingIngredients.get(i).setShoppingQuantity(quantities.get(i));
-        }
+        List<ShoppingIngredientDto> shoppingIngredients = service.generateIngredientListWithQuantity(dishListDto);
 
         model.addAttribute("ingredients", shoppingIngredients);
-        model.addAttribute("quantities", quantities);
 
         return "shopping_list_page";
     }
