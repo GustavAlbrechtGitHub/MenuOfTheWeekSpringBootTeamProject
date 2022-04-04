@@ -78,6 +78,16 @@ public class DishService {
         repository.save(dish);
 
     }
+    public void countDownQuantity(Integer id){
+        Dish dish = repository.findById(id).get();
+
+        dish.setOrderCounter(-1);
+        if(dish.getOrderCounter() == 0){
+            dish.setOrdered(false);
+        }
+        repository.save(dish);
+
+    }
 
     public List<Dish> generateList(List<Dish> allDishes, Integer listSize){
 

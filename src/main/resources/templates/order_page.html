@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <title>Orders</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.1.1/css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"/>
 </head>
 <body>
+
+
 
 <div class="mb-4 text-center opacity-75">
     <h3 style="color: green;font-family: fantasy"> Order </h3>
 </div>
+
+<div th:if="${message}" class="alert alert-danger text-center"> [[${message}]] </div>
 
 <div class="mb-4 text-center">
     <a class="btn btn-outline-danger" style="background-color: snow" th:href="@{/dishes/start_page}">Back To Menu</a>
@@ -24,6 +29,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Quantity</th>
+                <th>Remove</th>
             </tr>
             </thead>
             <tbody>
@@ -32,6 +38,7 @@
                    <td th:text="${order.name}"></td>
                     <td th:text="${order.description}"></td>
                     <td th:text="${order.orderCounter}"></td>
+                    <td><a class="h4 m-3 btn btn-danger bi bi-trash" th:href="@{'/dishes/remove/order/' + ${order.id}}"></a></td>
                 </tr>
             </th:block>
             </tbody>

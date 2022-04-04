@@ -309,4 +309,15 @@ public class DishController {
         model.addAttribute("orders", orders);
         return "order_page";
     }
+
+    @GetMapping("/dishes/remove/order/{id}")
+    public String deleteOrder(@PathVariable("id") Integer id, RedirectAttributes ra, Model model){
+        Dish dish = service.findById(id);
+
+        service.countDownQuantity(id);
+
+        ra.addFlashAttribute("message", " The order has been removed successfully!");
+
+        return "redirect:/dishes/orders";
+    }
 }
