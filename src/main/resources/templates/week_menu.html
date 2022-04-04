@@ -11,6 +11,7 @@
     <h4> Choose a Menu of the Week</h4>
 </div>
 
+
 <div>
     <div th:if="${message}" class="alert alert-success text-center"> [[${message}]] </div>
 
@@ -31,6 +32,9 @@
         <a class="h4 btn btn-outline-dark" th:href="@{/dishes/menu/popular}">Menu Of The week Popular</a>
     </div>
 </div>
+</div>
+<div class="mb-4 text-center">
+    <a class="btn btn-outline-danger" style="background-color: snow" th:href="@{/dishes/start_page}">Back To Menu</a>
 </div>
 </body>
 </html>

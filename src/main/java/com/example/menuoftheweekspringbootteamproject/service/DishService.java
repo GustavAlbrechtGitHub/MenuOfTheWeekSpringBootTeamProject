@@ -71,6 +71,14 @@ public class DishService {
         repository.save(dish);
     }
 
+    public void countUpQuantity(Integer id){
+        Dish dish = repository.findById(id).get();
+
+        dish.setOrderCounter(1);
+        repository.save(dish);
+
+    }
+
     public List<Dish> generateList(List<Dish> allDishes, Integer listSize){
 
         List<Integer> allDishesId = new ArrayList<>();

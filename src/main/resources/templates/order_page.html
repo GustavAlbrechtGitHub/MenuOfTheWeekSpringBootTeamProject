@@ -23,6 +23,7 @@
             <tr>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Quantity</th>
             </tr>
             </thead>
             <tbody>
@@ -30,6 +31,7 @@
                 <tr>
                    <td th:text="${order.name}"></td>
                     <td th:text="${order.description}"></td>
+                    <td th:text="${order.orderCounter}"></td>
                 </tr>
             </th:block>
             </tbody>

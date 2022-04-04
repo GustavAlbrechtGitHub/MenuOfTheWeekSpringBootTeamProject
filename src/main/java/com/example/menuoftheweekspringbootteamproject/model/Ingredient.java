@@ -18,9 +18,9 @@ public class Ingredient {
 
 
     @ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    List<Dish> dishes;
+    List<Dish> dishes = new ArrayList<>();
 
-    public Ingredient() { this.dishes = new ArrayList<>();
+    public Ingredient() {
     }
 
     public Ingredient(String ingredientName) {

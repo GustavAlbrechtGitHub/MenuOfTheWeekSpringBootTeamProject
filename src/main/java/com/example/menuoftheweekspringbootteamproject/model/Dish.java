@@ -22,25 +22,24 @@ public class Dish {
 
     private boolean isOrdered;
 
-
-
+    private int orderCounter = 0;
 
     @ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "dishes", fetch = FetchType.EAGER)
-    List<Ingredient> ingredients;
+    List<Ingredient> ingredients = new ArrayList<>();
 
     public Dish() {
-        this.ingredients = new ArrayList<>();
-        this.isOrdered = false;
+
     }
 
-//    public Dish(String name, String description, int likes, List<Ingredient> ingredients, Boolean isOrdered) {
-//        this.name = name;
-//        this.description = description;
-//        this.likes = likes;
-//        this.ingredients = ingredients;
-//        this.isOrdered = isOrdered;
-//        //this.ingredients = new ArrayList<>();
-//    }
+
+
+    public Integer getOrderCounter() {
+        return orderCounter;
+    }
+
+    public void setOrderCounter(Integer addCount) {
+        this.orderCounter = orderCounter + addCount;
+    }
 
     public List<Ingredient> getIngredients() {
         return ingredients;
