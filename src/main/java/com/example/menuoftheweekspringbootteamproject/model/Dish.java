@@ -20,6 +20,8 @@ public class Dish {
 
     private int likes;
 
+    private boolean isOrdered;
+
 
 
 
@@ -28,15 +30,17 @@ public class Dish {
 
     public Dish() {
         this.ingredients = new ArrayList<>();
+        this.isOrdered = false;
     }
 
-    public Dish(String name, String description, int likes, List<Ingredient> ingredients) {
-        this.name = name;
-        this.description = description;
-        this.likes = likes;
-        this.ingredients = ingredients;
-        //this.ingredients = new ArrayList<>();
-    }
+//    public Dish(String name, String description, int likes, List<Ingredient> ingredients, Boolean isOrdered) {
+//        this.name = name;
+//        this.description = description;
+//        this.likes = likes;
+//        this.ingredients = ingredients;
+//        this.isOrdered = isOrdered;
+//        //this.ingredients = new ArrayList<>();
+//    }
 
     public List<Ingredient> getIngredients() {
         return ingredients;
@@ -70,14 +74,19 @@ public class Dish {
         this.likes = likes + addedLike;
     }
 
-
-
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public boolean isOrdered() {
+        return isOrdered;
+    }
+
+    public void setOrdered(boolean ordered) {
+        isOrdered = ordered;
     }
 }
